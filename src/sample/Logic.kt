@@ -1,8 +1,7 @@
 package sample
 
-import java.util.ArrayList
-
 import javafx.scene.paint.Color
+import java.util.*
 
 class Logic(private val mainScreen: MainScreen) {
 
@@ -30,10 +29,7 @@ class Logic(private val mainScreen: MainScreen) {
       val h = Math.random() * 350
       obstacles.add(Obstacle(x, y, w, h))
     }
-
     counter = 0
-
-
   }
 
   fun update() {
@@ -46,15 +42,14 @@ class Logic(private val mainScreen: MainScreen) {
 
     if (counter == lifeSpan - 1) {
       counter = 0
-
+      //эволюционируем - остаются сильнейшие
       population!!.evaluate(target)
+      //создаем новую популяцию путем отбора из выживших (сильнейших)
       val newPop = Population(size, lifeSpan, population!!.selection())
       this.population = newPop
     } else {
       counter++
-
     }
-
   }
 
   fun draw() {

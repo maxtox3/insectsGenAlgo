@@ -13,6 +13,7 @@ public class Population {
     //срок жизни мошки
     private int lifeSpan;
 
+    //брачный бассейн хехе
     private List<Insect> matingPool;
 
     public Population(int size, int lifeSpan) {
@@ -55,18 +56,19 @@ public class Population {
 
         for (Insect insect : insects) {
             insect.setFintess(insect.getFintess() / maxFit);
-
         }
 
         for (Insect insect : insects) {
             insect.setFintess(insect.getFintess() * 100);
 
+            //ceil - наименьшее к ближ целому
             for (int j = 0; j < Math.ceil(insect.getFintess()); j++) {
                 matingPool.add(insect);
             }
         }
     }
 
+    //отбираем
     public List<Insect> selection() {
         Insect[] newInsects = new Insect[insects.size()];
 
@@ -76,7 +78,12 @@ public class Population {
             DNA parentA = matingPool.get((int) r).getDna();
             r = Math.random() * matingPool.size();
             DNA parentB = matingPool.get((int) r).getDna();
-            DNA child = parentA.crossOver(parentB);
+            DNA child = null;
+            if (parentB != null) {
+                if (parentA != null) {
+                    child = parentA.crossOver(parentB);
+                }
+            }
             newInsects[i] = new Insect(lifeSpan, true);
             newInsects[i].setDna(child);
         }

@@ -16,8 +16,8 @@ open class Obstacle(x: Double, y: Double, private val width: Double, private val
     if (insect.pos.y > pos.y && insect.pos.y < pos.y + height) {
       if (insect.pos.x >= pos.x && insect.pos.x <= pos
           .x + width) {
+        //мошка достигла предела
         insect.setCollision(true)
-        //System.out.println("collision");
       }
     }
   }

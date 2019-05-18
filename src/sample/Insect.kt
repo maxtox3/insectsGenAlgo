@@ -53,23 +53,22 @@ class Insect {
   }
 
   fun update(counter: Int) {
+    //костыль из-за мьютабельности :(
     var counter = counter
-
-
     if (pos.x < 0 || pos.x > 1900 || pos.y < 0 || pos.y > 1000) {
       collision = true
 
     }
 
     if (collision) {
-      this.vel.set(0.0, 0.0)
-      this.acc.set(0.0, 0.0)
+      this.vel[0.0] = 0.0
+      this.acc[0.0] = 0.0
     } else {
-      move(dna!!.genes[counter])
+      dna?.genes?.get(counter)?.let { move(it) }
 
       this.vel.add(this.acc)
       this.pos.add(this.vel)
-      this.acc.set(0.0, 0.0)
+      this.acc[0.0] = 0.0
     }
 
     counter++
